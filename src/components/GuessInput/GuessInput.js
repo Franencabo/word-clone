@@ -6,7 +6,7 @@ function GuessInput() {
   function handleSubmit(event) {
     event.preventDefault();
 
-    console.log(guess);
+    console.log({ guess });
 
     setGuess("");
   }
@@ -20,6 +20,7 @@ function GuessInput() {
         type="text"
         minLength={5}
         maxLength={5}
+        pattern="[a-zA-Z]{5}"
         value={guess}
         onChange={(event) => {
           const nextGuess = event.target.value.toLocaleUpperCase();
