@@ -1,17 +1,15 @@
 import { useState } from "react";
 
-function GuessInput({ newGuesses, setNewGuesses }) {
-  const [guess, setGuess] = useState("");
+function GuessInput({ gameStatus, handleSubmitGuess }) {
+  const [tentativeGuess, setTentativeGuess] = useState("");
 
   function handleSubmit(event) {
     event.preventDefault();
 
-    console.log({ guess });
-
-    setNewGuesses([...newGuesses, guess]);
+    handleSubmitGuess(tentativeGuess);
 
     // let the input empty when submit the word
-    setGuess("");
+    setTentativeGuess("");
   }
 
   return (
@@ -19,15 +17,16 @@ function GuessInput({ newGuesses, setNewGuesses }) {
       <label htmlFor="guess-input">Enter guess:</label>
       <input
         required
+        disabled={gameStatus !== "running"}
         id="guess-input"
         type="text"
         minLength={5}
         maxLength={5}
         pattern="[a-zA-Z]{5}"
-        value={guess}
+        value={tentativeGuess}
         onChange={(event) => {
           const nextGuess = event.target.value.toLocaleUpperCase();
-          setGuess(nextGuess);
+          setTentativeGuess(nextGuess);
         }}
       />
     </form>

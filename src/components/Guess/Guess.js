@@ -1,18 +1,26 @@
-import { NUM_OF_GUESSES_ALLOWED } from "../../constants";
+import { range } from "../../utils";
+import { checkGuess } from "../../game-helpers";
 
-function Guess() {
-  const rows = new Array(NUM_OF_GUESSES_ALLOWED).fill(null);
-  const columns = new Array(5).fill(null);
+function Cell({ letter, status }) {
+  const className = status ? `cell ${status}` : "cell";
+  return <span className={className}>{letter}</span>;
+}
 
-  return rows.map((guess, index) => (
-    <p key={index} className="guess">
-      {columns.map((letters, jndex) => (
-        <span key={`${index}-${jndex}`} className="cell">
-          {letters}
-        </span>
+function Guess({ value, answer }) {
+  const result = checkGuess(value, answer);
+
+  return (
+    <p className="guess">
+      {range(5).map((num) => (
+        <Cell
+          key={num}
+          value={value}
+          letter={result ? result[num].letter : undefined}
+          status={result ? result[num].status : undefined}
+        />
       ))}
     </p>
-  ));
+  );
 }
 
 export default Guess;
