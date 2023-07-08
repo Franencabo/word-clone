@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-function GuessInput() {
+function GuessInput({ newGuesses, setNewGuesses }) {
   const [guess, setGuess] = useState("");
 
   function handleSubmit(event) {
@@ -8,6 +8,9 @@ function GuessInput() {
 
     console.log({ guess });
 
+    setNewGuesses([...newGuesses, guess]);
+
+    // let the input empty when submit the word
     setGuess("");
   }
 
